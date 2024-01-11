@@ -5,6 +5,7 @@ export default {
   name: "User",
   data() {
     return {
+      fileList:[],
       tabledata:[],
       total:0,
       pageNumber:1,
@@ -17,6 +18,7 @@ export default {
       multipleSelection:[],
       dialogTableVisible: false,
       dialogFormVisible: false,
+      dialogFormVisible2: false,
       form: {
         username:'',
         nickname: '',
@@ -33,8 +35,17 @@ export default {
   },
 
   methods: {
+
+    exportExecel(){
+      window.open("http://localhost:9091/user/export")
+    },
+
+    importExcel(){
+      this.dialogFormVisible2=true
+    },
+
     load(){
-      request.get("http://localhost:9090/user/page",{
+      request.get("/user/page",{
         params: {
           pageNum: this.pageNumber,
           pageSize: this.pageSize,
@@ -70,8 +81,7 @@ export default {
       this.multipleSelection=val
     },
     del(id){
-      this.dialogFormVisible=true
-      request.delete("http://localhost:9090/user/delete/"+id).then(res=>{
+      request.delete("/user/delete/"+id).then(res=>{
         if(res){
           this.$message.success("删除成功")
           this.dialogFormVisible=false
@@ -107,7 +117,7 @@ export default {
     },
 
     save(){
-      request.post("http://localhost:9090/user/save",this.form).then(res=>{
+      request.post("/user/save",this.form).then(res=>{
         if(res){
           this.$message.success("保持成功")
           this.dialogFormVisible=false
@@ -116,8 +126,23 @@ export default {
           this.$message.error("保存失败")
         }
       })
-    }
+    },
 
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${ file.name }？`);
+    },
+
+    handleExcel(){
+      this.$message.success("导入成功")
+      this.load()
+    }
 
   },
 
@@ -146,8 +171,8 @@ export default {
         @confirm="delbatch">
       <el-button  type="danger" slot="reference"> 批量删除 <i class="el-icon-remove-outline"></i></el-button>
     </el-popconfirm>
-    <el-button  type="primary" > 导入 <i class="el-icon-upload2"></i></el-button>
-    <el-button  type="primary" > 导出 <i class="el-icon-download"></i></el-button>
+    <el-button  type="primary" @click="importExcel"> 导入 <i class="el-icon-upload2"></i></el-button>
+    <el-button  type="primary" @click="exportExecel"> 导出 <i class="el-icon-download"></i></el-button>
   </div>
 
   <el-table :data="tabledata"
@@ -194,7 +219,7 @@ export default {
     </el-pagination>
   </div>
 
-  <el-dialog title="新增" :visible.sync="dialogFormVisible">
+  <el-dialog :visible.sync="dialogFormVisible">
     <el-form :model="form">
       <el-form-item label="账户" :label-width="formLabelWidth">
         <el-input v-model="form.username" autocomplete="off"></el-input>
@@ -218,6 +243,24 @@ export default {
       <el-button type="primary" @click="save">确 定</el-button>
     </div>
   </el-dialog>
+
+    <el-dialog title="导入文件" :visible.sync="dialogFormVisible2">
+      <el-upload
+          class="upload-demo"
+          action="http://localhost:9091/user/import"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :before-remove="beforeRemove"
+          multiple
+          :limit="3"
+          :file-list="fileList"
+           :on-success="handleExcel">
+        <el-button size="small" type="primary">点击上传</el-button>
+        <div slot="tip" class="el-upload__tip">只能上传excel文件，且不超过500kb</div>
+      </el-upload>
+    </el-dialog>
+
+
   </div>
 </template>
 
