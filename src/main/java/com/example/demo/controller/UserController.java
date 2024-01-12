@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.entity.User;
+import com.example.demo.entity.dto.userDto;
 import com.example.demo.mapper.Usermapper;
 import com.example.demo.service.userService;
 import jakarta.servlet.ServletConfig;
@@ -116,6 +117,11 @@ public class UserController {
         userService.saveBatch(users);
         System.out.println(list);
 
+    }
+
+    @PostMapping("/login")//resquestbody 把前端的JSON转成java对象
+    public boolean login(@RequestBody userDto userdto){
+        return userService.login(userdto);
     }
 
 }

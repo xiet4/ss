@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Manager from '../views/Manager.vue'
+import Manage from '../views/Manage.vue'
+import Login from "@/views/Login.vue";
 import User from "@/views/User.vue";
 import Home from "@/views/Home.vue";
 Vue.use(VueRouter)
@@ -9,13 +10,18 @@ const routes = [
   {
     path: '/',
     name: 'Manage',
-    component: Manager,
+    component: Manage,
     redirect:"/home",
     children:[
       {path:'home',name:'主页',component:Home},
       {path:'user',name:'用户管理',component:User},
 
     ]
+  },
+  {
+    path: '/login',
+    name: 'login', // 路由名称
+    component: Login // 组件对象
   }
 
 ]
