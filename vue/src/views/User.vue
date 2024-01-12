@@ -151,28 +151,31 @@ export default {
 
 <template>
   <div>
+    <el-row :gutter="20">
+      <el-col :span="4"><el-input  suffix-icon="el-icon-search" placeholder="按账户搜索" v-model="username"></el-input></el-col>
+      <el-col :span="4"><el-input  suffix-icon="el-icon-search" placeholder="按名字搜索" v-model="nickname"></el-input></el-col>
+      <el-col :span="4"><el-input  suffix-icon="el-icon-search" placeholder="按邮箱搜索" v-model="email"></el-input></el-col>
+      <el-col :span="4"><el-input  suffix-icon="el-icon-search" placeholder="按电话搜索" v-model="phone"></el-input></el-col>
+      <el-col :span="2"><el-button tpye="primary" @click="load">搜索 </el-button></el-col>
+      <el-col :span="2"><el-button type="warning" @click="reset">重置 </el-button></el-col>
+    </el-row>
   <div>
-    <el-input style="width: 300px" suffix-icon="el-icon-search" placeholder="按账户搜索" v-model="username"></el-input>
-    <el-input style="width: 300px" suffix-icon="el-icon-search" placeholder="按名字搜索" v-model="nickname"></el-input>
-    <el-input style="width: 300px" suffix-icon="el-icon-search" placeholder="按邮箱搜索" v-model="email"></el-input>
-    <el-input style="width: 300px" suffix-icon="el-icon-search" placeholder="按电话搜索" v-model="phone"></el-input>
-
-    <el-button tpye="primary" @click="load">搜索 </el-button>
-    <el-button type="warning" @click="reset">重置 </el-button>
-  </div>
-  <div>
-    <el-button type="primary" @click="addhandle"> 新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-    <el-popconfirm
+    <el-row :gutter="5">
+      <el-col :span="3"><el-button type="primary" @click="addhandle"> 新增 <i class="el-icon-circle-plus-outline"></i></el-button></el-col>
+      <el-col :span="4">
+      <el-popconfirm
         confirm-button-text='好的'
         cancel-button-text='不用了'
         icon="el-icon-info"
         icon-color="red"
         title="确定删除吗？"
         @confirm="delbatch">
-      <el-button  type="danger" slot="reference"> 批量删除 <i class="el-icon-remove-outline"></i></el-button>
+        <el-button  type="danger" slot="reference"> 批量删除 <i class="el-icon-remove-outline"></i></el-button>
     </el-popconfirm>
-    <el-button  type="primary" @click="importExcel"> 导入 <i class="el-icon-upload2"></i></el-button>
-    <el-button  type="primary" @click="exportExecel"> 导出 <i class="el-icon-download"></i></el-button>
+      </el-col>
+      <el-col :span="3"><el-button  type="primary" @click="importExcel"> 导入 <i class="el-icon-upload2"></i></el-button></el-col>
+        <el-col :span="3"><el-button  type="primary" @click="exportExecel"> 导出 <i class="el-icon-download"></i></el-button></el-col>
+    </el-row>
   </div>
 
   <el-table :data="tabledata"
@@ -265,5 +268,9 @@ export default {
 </template>
 
 <style scoped>
+.el-row {
+  margin-bottom: 20px;
+
+}
 
 </style>
