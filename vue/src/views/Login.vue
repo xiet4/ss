@@ -40,15 +40,22 @@ export default {
   },
   methods: {
     onSubmit() {
-      request.post("/user/login", this.form).then(res=>{
-        if(res){
-          this.$message.success("登录成功")
-          this.$router.push("/")
-        }else {
-          this.$message.error("登录失败")
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          request.post("/user/login", this.form).then(res=>{
+            if(res){
+              this.$message.success("登录成功")
+              this.$router.push("/")
+            }else {
+              this.$message.error("登录失败")
+            }
+          })
+        } else {
+          return false;
         }
-      })
-    }
+      });
+    },
+
   }
 };
 </script>
