@@ -16,6 +16,8 @@
   </div>
 </template>
 <script>
+import request from "@/utils/request";
+
 export default {
   name:"Login",
   data() {
@@ -28,7 +30,14 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
+      request.post("/user/login", this.form).then(res=>{
+        if(res){
+          this.$message.success("登录成功")
+          this.$router.push("/")
+        }else {
+          this.$message.error("登录失败")
+        }
+      })
     }
   }
 };
