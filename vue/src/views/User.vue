@@ -164,16 +164,12 @@ export default {
       <el-col :span="4">
         <el-input suffix-icon="el-icon-search" placeholder="按电话搜索" v-model="phone"></el-input>
       </el-col>
-      <el-col :span="2">
         <el-button tpye="primary" @click="load">搜索</el-button>
-      </el-col>
-      <el-col :span="2">
         <el-button type="warning" @click="reset">重置</el-button>
-      </el-col>
     </el-row>
     <div>
 
-      <el-button type="primary" @click="addhandle"> 新增 <i class="el-icon-circle-plus-outline"></i></el-button>
+      <el-button type="primary" @click="addhandle" style="margin: 10px"> 新增 <i class="el-icon-circle-plus-outline"></i></el-button>
       <el-popconfirm
           confirm-button-text='好的'
           cancel-button-text='不用了'
@@ -181,11 +177,11 @@ export default {
           icon-color="red"
           title="确定删除吗？"
           @confirm="delbatch">
-        <el-button type="danger" slot="reference"> 批量删除 <i class="el-icon-remove-outline"></i></el-button>
+        <el-button type="danger" slot="reference" style="margin: 10px"> 批量删除 <i class="el-icon-remove-outline"></i></el-button>
       </el-popconfirm>
 
-      <el-button type="primary" @click="importExcel"> 导入 <i class="el-icon-upload2"></i></el-button>
-      <el-button type="primary" @click="exportExecel"> 导出 <i class="el-icon-download"></i></el-button>
+      <el-button type="primary" @click="importExcel" style="margin: 10px"> 导入 <i class="el-icon-upload2"></i></el-button>
+      <el-button type="primary" @click="exportExecel" style="margin: 10px"> 导出 <i class="el-icon-download"></i></el-button>
 
     </div>
 
@@ -279,9 +275,5 @@ export default {
 </template>
 
 <style scoped>
-.el-row {
-  margin-bottom: 20px;
-
-}
 
 </style>
