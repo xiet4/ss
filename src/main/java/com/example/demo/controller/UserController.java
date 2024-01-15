@@ -2,12 +2,15 @@ package com.example.demo.controller;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.demo.common.Constants;
+import com.example.demo.common.Result;
 import com.example.demo.entity.User;
 import com.example.demo.entity.dto.userDto;
 import com.example.demo.mapper.Usermapper;
@@ -120,8 +123,14 @@ public class UserController {
     }
 
     @PostMapping("/login")//resquestbody 把前端的JSON转成java对象
-    public boolean login(@RequestBody userDto userdto){
-        return userService.login(userdto);
+    public Result login(@RequestBody userDto userdto){
+
+        String username =userdto.getUsername();
+        String password = userdto.getPassword();
+        if(StrUtil.isBlank(username)||StrUtil.isBlank(password)){
+            return Result.error(Constants.CODE_500,"ss");
+        }
+        return Result.success(userService.login(userdto));
     }
 
 }

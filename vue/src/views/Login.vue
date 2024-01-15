@@ -43,7 +43,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           request.post("/user/login", this.form).then(res=>{
-            if(res){
+            if(res.code==="200"){
               this.$message.success("登录成功")
               this.$router.push("/")
             }else {
