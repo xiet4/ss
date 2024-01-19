@@ -8,9 +8,18 @@ export default {
   },
   data(){
     return{
+      user: JSON.parse(localStorage.getItem("user")),
       currentPath:''
     }
+  },
 
+  methods:{
+    logout(){
+      this.$router.push("/login")
+      localStorage.removeItem("user")
+      this.$message.success("退出成功")
+
+    }
   }
 }
 </script>
@@ -26,13 +35,11 @@ export default {
     <el-dropdown>
       <i class="el-icon-setting" style="margin-right: 15px"></i>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>查看</el-dropdown-item>
-        <el-dropdown-item>新增</el-dropdown-item>
-        <el-dropdown-item>删除</el-dropdown-item>
+        <el-dropdown-item> <router-link to="/inform" >个人信息 </router-link></el-dropdown-item>
+        <el-dropdown-item><span @click="logout">退出 </span></el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-    <span>王小虎</span>
-
+    <span>{{user.username}}</span>
   </div>
 </template>
 

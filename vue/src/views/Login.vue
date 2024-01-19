@@ -44,6 +44,8 @@ export default {
         if (valid) {
           request.post("/user/login", this.form).then(res=>{
             if(res.code==="200"){
+              console.log(res)
+              localStorage.setItem("user",JSON.stringify(res.data))
               this.$message.success("登录成功")
               this.$router.push("/")
             }else {

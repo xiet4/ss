@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
+
 
 @RequestMapping("/user")
 @RestController
@@ -45,6 +45,13 @@ public class UserController {
         return userService.saveOrUpdate(user);
 
     }
+    @GetMapping("/find/{username}")
+    public User findByName(@PathVariable String username){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+         queryWrapper.eq("username",username);
+        return userService.getOne(queryWrapper);
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public boolean delete(@PathVariable int id){

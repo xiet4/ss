@@ -4,6 +4,7 @@ import Manage from '../views/Manage.vue'
 import Login from "@/views/Login.vue";
 import User from "@/views/User.vue";
 import Home from "@/views/Home.vue";
+import Inform from "@/views/Information.vue";
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,7 +16,7 @@ const routes = [
     children:[
       {path:'home',name:'主页',component:Home},
       {path:'user',name:'用户管理',component:User},
-
+      {path:'inform',name:'用户信息',component:Inform},
     ]
   },
   {
