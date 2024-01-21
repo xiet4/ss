@@ -7,7 +7,9 @@ export default {
     return {
       form:{},
       user: JSON.parse(localStorage.getItem("user")),
+      formLabelWidth: '120px'
     }
+
   },
 
   created() {

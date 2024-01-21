@@ -26,6 +26,7 @@ export default {
         username: "",
         password: ""
       },
+      formLabelWidth: '120px',
 
       rules: {
         username: [

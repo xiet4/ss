@@ -1,4 +1,5 @@
 import axios from 'axios'
+import ElementUI from "element-ui";
 
 const request = axios.create({
     baseURL: 'http://localhost:9091',  // 注意！！ 这里是全局统一加上了 后端接口前缀 前缀，后端必须进行跨域配置！
@@ -10,8 +11,10 @@ const request = axios.create({
 // 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
-
-    // config.headers['token'] = user.token;  // 设置请求头
+    let user = JSON.parse(localStorage.getItem("user"));
+    if(user) {
+        config.headers['token'] = user.token;  // 设置请求头
+    }
     return config
 }, error => {
     return Promise.reject(error)
@@ -30,6 +33,13 @@ request.interceptors.response.use(
         if (typeof res === 'string') {
             res = res ? JSON.parse(res) : res
         }
+        if (res.code === '401') {
+            ElementUI.Message({
+                message:res.msg,
+                error:'error'
+            })
+        }
+
         return res;
     },
     error => {

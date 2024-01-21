@@ -8,6 +8,6 @@ public class userDto {
     private String username;
     private String password;
     private String nickname;
-
+    private String token;
 
 }

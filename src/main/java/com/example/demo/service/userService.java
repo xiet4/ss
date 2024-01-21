@@ -10,6 +10,7 @@ import com.example.demo.entity.User;
 import com.example.demo.entity.dto.userDto;
 import com.example.demo.exception.ServiceException;
 import com.example.demo.mapper.Usermapper;
+import com.example.demo.utils.Token;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,8 @@ public class userService extends ServiceImpl<Usermapper, User> {
         User one =getOne(queryWrapper);
         if (one!=null){
         BeanUtil.copyProperties(one,userdto,true);
+        String token= Token.getToken(one.getId().toString(),one.getPassword());
+        userdto.setToken(token);
         return userdto;
         }else {
             throw new ServiceException(Constants.CODE_500,"用户不存在");
